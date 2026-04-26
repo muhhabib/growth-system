@@ -255,7 +255,7 @@ function renderDashboard() {
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem">
         <div class="card">
           <div class="card-title mb-0" style="margin-bottom:.75rem">${s.lang==='id'?'Target terdekat':'Upcoming targets'}</div>
           ${upcoming.length ? upcoming.map(m => {
@@ -1811,24 +1811,31 @@ function renderTemplateSlots(key, slots) {
     // Insert button BEFORE each slot
     html += `<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">
       <button onclick="insertTemplateSlot('${key}',${i})" title="${s.lang==='id'?'Sisipkan slot di sini':'Insert slot here'}"
-        style="font-size:10px;padding:1px 8px;border-radius:10px;border:1px dashed var(--color-border-secondary);background:transparent;color:var(--color-text-tertiary);cursor:pointer;line-height:1.6">
+        style="font-size:10px;padding:1px 8px;border-radius:10px;border:1px dashed var(--border2);background:transparent;color:var(--text3);cursor:pointer;line-height:1.6;white-space:nowrap">
         + ${s.lang==='id'?'sisip':'insert'}
       </button>
-      <div style="flex:1;height:1px;background:var(--color-border-tertiary)"></div>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
     </div>`;
 
-    // Slot row
-    html += `<div style="display:grid;grid-template-columns:80px 80px 1fr 90px 32px;gap:6px;margin-bottom:4px;align-items:center">
-      <input type="text" value="${slot.time}" placeholder="06.00" style="font-size:12px;padding:6px 8px"
-        onchange="updateTemplateSlot('${key}',${i},'time',this.value)">
-      <input type="text" value="${slot.end}" placeholder="08.00" style="font-size:12px;padding:6px 8px"
-        onchange="updateTemplateSlot('${key}',${i},'end',this.value)">
-      <input type="text" value="${slot.label}" placeholder="${s.lang==='id'?'Nama aktivitas':'Activity name'}" style="font-size:12px;padding:6px 8px"
-        onchange="updateTemplateSlot('${key}',${i},'label',this.value)">
-      <select style="font-size:12px;padding:6px 8px" onchange="updateTemplateSlot('${key}',${i},'cat',this.value)">
-        ${catOptions.map(c => `<option value="${c}" ${slot.cat===c?'selected':''}>${c}</option>`).join('')}
-      </select>
-      <button class="btn btn-danger-outline btn-icon btn-sm" onclick="deleteTemplateSlot('${key}',${i})">✕</button>
+    // Slot row — mobile friendly 2-row layout
+    html += `<div style="background:var(--surface2);border-radius:var(--radius-sm);padding:8px;margin-bottom:4px">
+      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-bottom:6px;align-items:center">
+        <input type="text" value="${slot.time}" placeholder="06.00"
+          style="font-size:12px;padding:6px 8px"
+          onchange="updateTemplateSlot('${key}',${i},'time',this.value)">
+        <input type="text" value="${slot.end}" placeholder="08.00"
+          style="font-size:12px;padding:6px 8px"
+          onchange="updateTemplateSlot('${key}',${i},'end',this.value)">
+        <button class="btn btn-danger-outline btn-icon btn-sm" onclick="deleteTemplateSlot('${key}',${i})">✕</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center">
+        <input type="text" value="${slot.label}" placeholder="${s.lang==='id'?'Nama aktivitas':'Activity name'}"
+          style="font-size:12px;padding:6px 8px"
+          onchange="updateTemplateSlot('${key}',${i},'label',this.value)">
+        <select style="font-size:12px;padding:6px 8px;width:90px" onchange="updateTemplateSlot('${key}',${i},'cat',this.value)">
+          ${catOptions.map(c => `<option value="${c}" ${slot.cat===c?'selected':''}>${c}</option>`).join('')}
+        </select>
+      </div>
     </div>`;
   });
 

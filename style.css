@@ -548,11 +548,68 @@ textarea { resize: vertical; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .week-grid-view { grid-template-columns: repeat(4, 1fr); }
   .form-row { grid-template-columns: 1fr; }
-  .page-content { padding: 1.25rem; }
-  .page-title { font-size: 22px; }
+  .page-content {
+    padding: 1rem;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .page-title { font-size: 20px; }
+  .card { padding: 1rem; }
+  .card-sm { padding: .75rem 1rem; }
+
+  /* Modal full width on mobile */
+  .modal-overlay { padding: .5rem; align-items: flex-end; }
+  .modal {
+    max-width: 100%;
+    width: 100%;
+    border-radius: var(--radius) var(--radius) 0 0;
+    max-height: 92vh;
+    padding: 1.25rem 1rem;
+  }
+
+  /* Settings rows wrap on mobile */
+  .settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .settings-row .toggle-row { width: 100%; }
+  .settings-row select { width: 100%; }
+  .color-options { flex-wrap: wrap; }
+
+  /* Schedule template slot grid — 2 rows on mobile */
+  .tmpl-slot-row {
+    grid-template-columns: 1fr 1fr 32px !important;
+    grid-template-rows: auto auto;
+  }
+  .tmpl-slot-label { grid-column: 1 / 3; }
+  .tmpl-slot-cat { grid-column: 1 / 3; }
+
+  /* Dashboard grid tighter */
+  .stats-grid .stat-val { font-size: 22px; }
+
+  /* Prevent horizontal scroll globally */
+  body { overflow-x: hidden; }
+  .page { overflow-x: hidden; }
 }
 
 @media (max-width: 400px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .week-grid-view { grid-template-columns: repeat(4, 1fr); }
+  .page-content { padding: .75rem; }
+  .modal { padding: 1rem .75rem; }
+}
+
+/* ===== SAFE AREA (notch / gesture bar) ===== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .sidebar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .mobile-topbar {
+    padding-top: env(safe-area-inset-top);
+    height: calc(var(--nav-h) + env(safe-area-inset-top));
+  }
+  .page-content {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
 }

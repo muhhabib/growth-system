@@ -289,6 +289,11 @@ body {
 .habit-actions { display: flex; gap: 6px; opacity: 0; transition: opacity .12s; }
 .habit-item:hover .habit-actions { opacity: 1; }
 
+/* Always show on touch devices */
+@media (hover: none) {
+  .habit-actions { opacity: 1; }
+}
+
 /* ===== TAGS / CHIPS ===== */
 .chip {
   display: inline-block; font-size: 10px; font-weight: 600;

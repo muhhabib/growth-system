@@ -1,4 +1,4 @@
-const CACHE = 'growth-system-v2';
+const CACHE = 'growth-system-v3';
 const ASSETS = [
   './',
   './index.html',
